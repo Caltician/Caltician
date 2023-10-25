@@ -58,9 +58,7 @@ foreach ($mailbox in $mailboxes) {
         $perms = $u.AccessRights
 
         # If they have different rights, set the new one. If they have no rights add the rights.
-        if ($perms -contains $accessRights){
-            Set-MailboxPermission -Identity $mailbox -User $user -AccessRights $accessRights
-        } elseif ($null -eq $perms){
+        if ($perms -notcontains $accessRights){
             Add-MailboxPermission -Identity $mailbox -User $user -AccessRights $accessRights
         }
     }
